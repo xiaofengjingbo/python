@@ -4,13 +4,17 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import urllib.request
-import os
-
+from openpyxl import Workbook
 
 class XiaofengPipeline(object):
-    def process_item(self, item, spider):
+        def __init__(self):
+            self.wb = Workbook()  # class实例化
+            self.ws = self.wb.active  # 激活工作表
+
         def process_item(self, item, spider):
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0'}
-           # file_name = os.path.join(r'/Users/xiaofeng/Desktop/bbb', item['name'] + '.text')
-        return item
+            print(item['num'].replace("\n", "").strip()[4:])
+
+            line = [item['name'],item['value'],item['num'].replace("\n", "").strip()[4:]]  # 把数据中每一项整理出来
+            self.ws.append(line)  # 将数据以行的形式添加到xlsx中
+            self.wb.save('/Users/xiaofeng/Desktop/chuzhongpagelist.xlsx')  # 保存xlsx文件
+            return item

@@ -38,9 +38,12 @@ class ChangeExcelPipeline(object):
     def process_item(self, item, spider):
         row_ind = item['row_ind']
         voice_url = item['voice_url']
-        has_collins_defn = item['has_collins_defn']
-        self.sheet.write(row_ind, 6, voice_url)
-        self.sheet.write(row_ind, 8, has_collins_defn)
+        id = item['id']
+        symbol = item['symbol']
+
+        self.sheet.write(row_ind, 2, voice_url)
+        self.sheet.write(row_ind, 3, id)
+        self.sheet.write(row_ind, 4, symbol)
         return item
 
     def open_spider(self, spider):

@@ -19,8 +19,8 @@ HTTP_PROXY_LIST = [
         'http://183.167.217.152:63000',
 ]
 
-TARGET_EXCEL_PATH = '/Users/xiaofeng/Desktop/danci_gk.xlsx'
-NEW_EXCEL_PATH = '/Users/xiaofeng/Desktop/中考单词表123.xlsx'
+TARGET_EXCEL_PATH = '/Users/xiaofeng/Desktop/word.xlsx'
+NEW_EXCEL_PATH = '/Users/xiaofeng/Desktop/words.xlsx'
 
 FILES_STORE = '/Users/xiaofeng/Desktop/voicez_zk'
 FILES_URLS_FIELD = 'voice_url'
@@ -77,7 +77,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'shanbayScrapy.pipelines.DownloadVoicePipeline': 1,
+    #'shanbayScrapy.pipelines.DownloadVoicePipeline': 1,
     'shanbayScrapy.pipelines.ChangeExcelPipeline': 350,
 }
 

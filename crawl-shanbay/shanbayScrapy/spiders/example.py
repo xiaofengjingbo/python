@@ -20,18 +20,20 @@ class ExampleSpider(scrapy.Spider):
             first_sheet = workbook.sheet_by_name(sheet_names[0])
             # sheet的名称，行数，列数
             print('sheet的名称',first_sheet.name, first_sheet.nrows, first_sheet.ncols)
-            for i in range(first_sheet.nrows):
-                if i == 0:
-                    continue
-                en = first_sheet.row(i)[1]
+            for i in range(first_sheet.nrows+1):
+                en = first_sheet.row(i)[0]
                 if en.ctype == 1:
                     millisecond = (int(round(time.time() * 1000)))
                     value = en.value
+                    print('111111111111111111111',value)
                     url = self.search_template.format(value, millisecond)
                     item = ShanbayscrapyItem()
                     item['en'] = value
                     item['row_ind'] = i
                     yield scrapy.Request(url=url, callback=self.parse, meta={'item': item})
+
+
+
 
     def parse(self, response):
         item = response.meta['item']
@@ -41,7 +43,6 @@ class ExampleSpider(scrapy.Spider):
                 and 'audio_addresses' in json_dict['data'] \
                 and 'us' in json_dict['data']['audio_addresses']:
             us_arr = json_dict['data']['audio_addresses']['us']
-            item['has_collins_defn'] = json_dict['data']['has_collins_defn']
             if len(us_arr) > 0:
                 for i in range(len(us_arr)):
                     if us_arr[i].startswith('http://'):
@@ -49,5 +50,7 @@ class ExampleSpider(scrapy.Spider):
                         if 'audio_name' in json_dict['data']:
                             item['audio_name'] = json_dict['data']['audio_name']
                         if 'id' in json_dict['data']:
-                            item['audio_id'] = json_dict['data']['id']
+                            item['id'] = json_dict['data']['id']
+                        if 'pronunciations' in json_dict['data']:
+                            item['symbol'] = json_dict['data']['pronunciations']['us']
                         yield item

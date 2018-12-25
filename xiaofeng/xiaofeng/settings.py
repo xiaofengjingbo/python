@@ -14,7 +14,6 @@ BOT_NAME = 'xiaofeng'
 SPIDER_MODULES = ['xiaofeng.spiders']
 NEWSPIDER_MODULE = 'xiaofeng.spiders'
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'xiaofeng (+http://www.yourdomain.com)'
 
@@ -64,9 +63,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#  'xiaofeng.pipelines.XiaofengPipeline': 300,
-#}
+ITEM_PIPELINES = {
+  'xiaofeng.pipelines.XiaofengPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
